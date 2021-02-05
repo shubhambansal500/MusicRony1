@@ -7,7 +7,7 @@ import {User} from './user';
 // export class LoginService {
 //   constructor(private http: HttpClient) { }
 
-//   private static URL = 'https://doresa.azurewebsites.net/api/registration?code=GnJBNGLZkaC6H7lguuqr2e3P3TvJy5Kgux9TXu3tx7uLe21rFOmsYw==';
+//   private static URL = 'https://musicrony.azurewebsites.net/api/registration?code=tOUh6qSxzQ0qh4fvqyJGk1Ca80WKnkSswxPDokJXeRDZaRdCSG7vrw%3D%3D';
 //   async fetchLogin() {
 //     try {
 //       console.log('Entry point for Login API')
@@ -18,13 +18,13 @@ import {User} from './user';
 //         "retype_password": "IpOr#0987",
 //         "create": false
 //       };
-//       return this.http.post('https://doresa.azurewebsites.net/api/registration', criteria, {
+//       return this.http.post('https://musicrony.azurewebsites.net/api/registration', criteria, {
 //         params: {
-//           code: "GnJBNGLZkaC6H7lguuqr2e3P3TvJy5Kgux9TXu3tx7uLe21rFOmsYw=="
+//           code: "tOUh6qSxzQ0qh4fvqyJGk1Ca80WKnkSswxPDokJXeRDZaRdCSG7vrw%3D%3D"
 //         }
 //       });
 //       //const data = await this.http.get('./test.json').subscribe();
-//       //const data = this.http.post<any>('https://doresa.azurewebsites.net/api/registration?code=GnJBNGLZkaC6H7lguuqr2e3P3TvJy5Kgux9TXu3tx7uLe21rFOmsYw==', criteria).subscribe(data => {
+//       //const data = this.http.post<any>('https://musicrony.azurewebsites.net/api/registration?code=tOUh6qSxzQ0qh4fvqyJGk1Ca80WKnkSswxPDokJXeRDZaRdCSG7vrw%3D%3D', criteria).subscribe(data => {
 //       //   this.postId = data.id;
 //       // })
 //       //const data: any = await this.http.get(LoginService.URL).toPromise();
@@ -54,9 +54,9 @@ export class LoginComponent{
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.post<User>('https://doresa.azurewebsites.net/api/registration', this.criteria, {
+    this.http.post<User>('https://musicrony.azurewebsites.net/api/registration', this.criteria, {
         params: {
-          code: "GnJBNGLZkaC6H7lguuqr2e3P3TvJy5Kgux9TXu3tx7uLe21rFOmsYw=="
+          code: "tOUh6qSxzQ0qh4fvqyJGk1Ca80WKnkSswxPDokJXeRDZaRdCSG7vrw%3D%3D"
         }
       }).subscribe(data => {
       this.httpData=data;

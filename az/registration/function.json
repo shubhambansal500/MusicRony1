@@ -1,0 +1,34 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "users",
+      "databaseName": "testDB",
+      "collectionName": "Users",
+      "connectionStringSetting": "doresa_DOCUMENTDB",
+      "direction": "in",
+      "type": "cosmosDB"
+    },
+    {
+      "name": "newUser",
+      "direction": "out",
+      "type": "cosmosDB",
+      "databaseName": "testDB",
+      "collectionName": "Users",
+      "connectionStringSetting": "doresa_DOCUMENTDB"
+    }
+  ]
+}
