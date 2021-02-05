@@ -41,8 +41,8 @@
   </div>
 </div>  
 
-<div *ngFor="let item of loginData | keyvalue">
-  {{item.key}}:{{item.value}}
+<div>
+  {{this.httpData.message.username}}
 </div>
 <!-- 
 <div *ngFor="let login of loginData">

@@ -1,4 +1,4 @@
 export class User {
-    status: string;
-    message: string 
+    status: number;
+    message: object 
 }
