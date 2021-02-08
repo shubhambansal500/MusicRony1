@@ -6,8 +6,8 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "post",
-        "get"
+        "get",
+        "post"
       ]
     },
     {
@@ -16,19 +16,19 @@
       "name": "res"
     },
     {
-      "name": "users",
+      "name": "instruments",
       "databaseName": "testDB",
-      "collectionName": "Users",
+      "collectionName": "Instruments",
       "connectionStringSetting": "doresa_DOCUMENTDB",
       "direction": "in",
       "type": "cosmosDB"
     },
     {
-      "name": "newUser",
+      "name": "newInstrument",
       "direction": "out",
       "type": "cosmosDB",
       "databaseName": "testDB",
-      "collectionName": "Users",
+      "collectionName": "Instruments",
       "connectionStringSetting": "doresa_DOCUMENTDB"
     }
   ]

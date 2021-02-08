@@ -1,110 +1,107 @@
 module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+    try {
+        let responseMessage = {
+            status: 201,
+            message: {}
+        };
+        let errorMessage = "Incorrect payload! Following inputs are incorrect or missing:";
 
-    const name = req.body.username;
-    const password = req.body.password;
-    const retypePassword = req.body.retype_password;
-    const userType = req.body.user_type;
-    let responseMessage = {
-        status: 201,
-        message: {}
-    };
-    
-    /*GET */
-    if(!req.body.create) {
-        if(context.bindings.users.find(element => element.username == name) && (context.bindings.users.find(element => element.username == name)).invalid_logins <= 4) {
-            if((context.bindings.users.find(element => element.username == name)).password == password) {
+        /*Input validation starts */
+        if (req.method == "POST") {
+            if (!(req.body && req.body.email && req.body.first_name && req.body.last_name && req.body.user_type && req.body.gender && req.body.DOB && req.body.age)) {
+                if (!req.body) throw new Error(errorMessage + " Payload.");
+                if (!req.body.email) errorMessage += " email";
+                if (!req.body.first_name) errorMessage += " firstName";
+                if (!req.body.last_name) errorMessage += " lastName";
+                if (!req.body.user_type) errorMessage += " userType";
+                if (!req.body.gender) errorMessage += " gender";
+                if (!req.body.DOB) errorMessage += " DOB";
+                if (!req.body.age) errorMessage += " age";
+                throw new Error(errorMessage);
+            }
+        }
+
+        if (req.method == "GET") {
+            if (!(req.query && req.query.emailId)) {
+                errorMessage = "Bad Request! Please supply the valid parameters.";
+                throw new Error(errorMessage);
+            }
+        }
+        /*Input validation ends */
+
+        if (typeof (req.body) != "object") req.body = {};
+
+        const email = req.body.email;
+        const first_name = req.body.first_name;
+        const last_name = req.body.last_name;
+        const userType = req.body.user_type;
+        const gender = req.body.gender;
+        const DOB = req.body.DOB;
+        const age = req.body.age;
+        const months_of_experience = req.body.months_of_experience;
+        const experience_level = req.body.experience_level;
+        const instruments = req.body.instruments;
+        const about_the_author = req.body.about_the_author;
+        const video_links = req.body.video_links;
+        const average_number_of_classes_per_week = req.body.average_number_of_classes_per_week;
+        const emailId = req.query.emailId;
+        const users = context.bindings.users;               //List of users
+
+        /*Authentication starts */
+        if (req.method == "GET") {
+            if (users.find(element => element.email == emailId) && (users.find(element => element.email == emailId)).lock_id != true) {
                 responseMessage.status = 200;
-                responseMessage.message = context.bindings.users.find(element => element.username == name);
-                context.bindings.newUser = {
-                    id: (context.bindings.users.find(element => element.username == name)).id,
-                    username: name,
-                    password: password,
-                    lock_id: false,
-                    user_type: (context.bindings.users.find(element => element.username == name)).user_type,
-                    invalid_logins: 0,
-                    _rid: (context.bindings.users.find(element => element.username == name))._rid,
-                    _self: (context.bindings.users.find(element => element.username == name))._self,
-                    _etag: (context.bindings.users.find(element => element.username == name))._etag,
-                    _attachments: (context.bindings.users.find(element => element.username == name))._attachments,
-                    _ts: (context.bindings.users.find(element => element.username == name))._ts
-                };
+                responseMessage.message = users.find(element => element.email == emailId);
             }
-            else{
-                if((context.bindings.users.find(element => element.username == name)).invalid_logins + 1 <= 4) {
-                    context.bindings.newUser = {
-                        id: (context.bindings.users.find(element => element.username == name)).id,
-                        username: name,
-                        password: (context.bindings.users.find(element => element.username == name)).password,
-                        lock_id: false,
-                        user_type: (context.bindings.users.find(element => element.username == name)).user_type,
-                        invalid_logins: (context.bindings.users.find(element => element.username == name)).invalid_logins + 1,
-                        _rid: (context.bindings.users.find(element => element.username == name))._rid,
-                        _self: (context.bindings.users.find(element => element.username == name))._self,
-                        _etag: (context.bindings.users.find(element => element.username == name))._etag,
-                        _attachments: (context.bindings.users.find(element => element.username == name))._attachments,
-                        _ts: (context.bindings.users.find(element => element.username == name))._ts
-                    };
-                    responseMessage.status = 401;
-                    responseMessage.message = "Unauthorized! Supplied password is incorrect.";
-                }
-                else {
-                    context.bindings.newUser = {
-                        id: (context.bindings.users.find(element => element.username == name)).id,
-                        username: name,
-                        password: (context.bindings.users.find(element => element.username == name)).password,
-                        lock_id: true,
-                        user_type: (context.bindings.users.find(element => element.username == name)).user_type,
-                        invalid_logins: (context.bindings.users.find(element => element.username == name)).invalid_logins + 1,
-                        _rid: (context.bindings.users.find(element => element.username == name))._rid,
-                        _self: (context.bindings.users.find(element => element.username == name))._self,
-                        _etag: (context.bindings.users.find(element => element.username == name))._etag,
-                        _attachments: (context.bindings.users.find(element => element.username == name))._attachments,
-                        _ts: (context.bindings.users.find(element => element.username == name))._ts
-                    };
-                    responseMessage.status = 401;
-                    responseMessage.message = "Unauthorized! Supplied password is incorrect. Account has been locked.";
-                }
+            else {
+                responseMessage.status = 403;
+                responseMessage.message = "Forbidden! Either the user doesn't exist or has been locked."
             }
         }
-        else{
-            responseMessage.status = 403;
-            responseMessage.message = "Forbidden! Either the user doesn't exist or has been locked."
-        }
-    }
-    /*GET ends */
+        /*Authentication ends */
 
-    /*POST */
-    if(req.body.create) {
-        if(context.bindings.users.find(element => element.username == name)) {
-            responseMessage.status = 409;
-            responseMessage.message = "Username already registered!";
-        }
-        else {
-            if(password === retypePassword) {
+        /*Registration starts */
+        if (req.method == "POST") {
+            if (users.find(element => element.email == email)) {
+                responseMessage.status = 409;
+                responseMessage.message = "Username already registered!";
+            }
+            else {
                 context.bindings.newUser = {
-                    username: name,
-                    password: password,
+                    email: email,
+                    first_name: first_name,
+                    last_name: last_name,
                     user_type: userType,
-                    invalid_logins: 0,
-                    lock_id: false
+                    gender: gender,
+                    DOB: DOB,
+                    age: age,
+                    lock_id: false,
+                    months_of_experience: months_of_experience,
+                    experience_level: experience_level,
+                    instruments: instruments,
+                    about_the_author: about_the_author,
+                    video_links: video_links,
+                    average_number_of_classes_per_week: average_number_of_classes_per_week
                 };
                 responseMessage.message = {
-                    username: name,
+                    email: email,
+                    first_name: first_name,
+                    last_name: last_name,
                     user_type: userType
                 };
             }
-            else {
-                responseMessage.status = 412;
-                responseMessage.message = "Precondition Failed! Primary and Secondary passwords did not match.";
-            }
         }
-    }
-    /*POST ends */
+        /*Registration ends */
 
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        status: responseMessage.status,
-        body: responseMessage
-    };
+        context.res = {
+            status: responseMessage.status,
+            body: responseMessage.message
+        };
+    }
+    catch (err) {
+        context.res = {
+            status: 400,
+            body: err.message
+        };
+    }
 }
