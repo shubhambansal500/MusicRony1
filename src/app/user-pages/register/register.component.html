@@ -110,6 +110,15 @@
             <p class="card-text">{{ user.email }}</p>
             <p class="card-text">Logged in with {{ user.provider }}</p>
           </div>
+          <form class="card-block">
+            Gender: <input type="text" [(ngModel)]="gender" name="gender">
+            Date of Birth: <input type="text" [(ngModel)]="dob" name="dob">
+            Age: <input type="text" [(ngModel)]="age" name="age">
+            Months of Experience<input type="text" [(ngModel)]="months_of_experience" name="months_of_experience">
+            Experience Level<input type="text" [(ngModel)]="experience_level" name="experience_level">
+            Submit: <button class="btn btn-social-icon btn-facebook mx-1" (click)="signMeUp()"><span
+              class="fab fa-facebook"></span></button>
+          </form>
           <div class="card-block">
             <button class="btn btn-danger" (click)="signOut()">Sign out</button>
           </div>
