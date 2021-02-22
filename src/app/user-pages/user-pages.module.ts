@@ -4,15 +4,17 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { Routes, RouterModule } from '@angular/router';
 import {DemoComponent} from './demo/demo.component';
+import { DboardComponent } from './dboard/dboard.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'demo', component: DemoComponent },
+  { path: 'dboard', component: DboardComponent },
 ]
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, DemoComponent],
+  declarations: [LoginComponent, RegisterComponent, DemoComponent, DboardComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)

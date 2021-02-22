@@ -66,7 +66,7 @@
         <i class="mdi mdi-contacts menu-icon"></i>
       </a>
     </li>
-    <li class="nav-item" [ngClass]="{ 'active' : blankPage.isActive || login.isActive || register.isActive || error404.isActive || error500.isActive }">
+    <li class="nav-item" [ngClass]="{ 'active' : blankPage.isActive || login.isActive || register.isActive || dboard.isActive || error404.isActive || error500.isActive }">
       <a class="nav-link" (click)="samplePagesCollapsed = !samplePagesCollapsed"  [attr.aria-expanded]="samplePagesCollapsed" aria-controls="auth">
         <span class="menu-title">Sample Pages</span>
         <i class="menu-arrow"></i>
@@ -77,6 +77,7 @@
           <li class="nav-item"> <a class="nav-link" routerLink="general-pages/blank-page" routerLinkActive="active" #blankPage="routerLinkActive"> Blank Page </a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="user-pages/login" routerLinkActive="active" #login="routerLinkActive"> Login </a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="user-pages/register" routerLinkActive="active" #register="routerLinkActive"> Register </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="user-pages/dboard" routerLinkActive="active" #dboard="routerLinkActive"> Dboard </a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="error-pages/404" routerLinkActive="active" #error404="routerLinkActive"> 404 </a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="error-pages/500" routerLinkActive="active" #error500="routerLinkActive"> 500 </a></li>
         </ul>
