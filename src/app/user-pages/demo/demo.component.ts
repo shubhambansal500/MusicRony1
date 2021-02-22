@@ -22,19 +22,30 @@ export class DemoComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe(user => {
       this.user = user;
+      if(this.user != null){
+        console.log(user.firstName)
+        console.log(user.lastName)
+        console.log(user.email)
+      }
     });
   }
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    console.log('------------Google Login------------------')
+    console.log(this.authService.authState)
   }
 
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    console.log('------------Facebook Login------------------')
   }
 
   signOut(): void {
-    this.authService.signOut();
+    if(this.user != null){
+      this.authService.signOut(true);
+      console.log('-----------------user loggedd out-------------------')
+    }
   }
 
   refreshGoogleToken(): void {
