@@ -36,21 +36,105 @@ export class RegisterComponent implements OnInit {
         console.log(user.lastName)
         console.log(user.email)
       }
+      this.fetchSelectedItems()
+      this.fetchCheckedIDs()
     });
   }
 
     public gender: string; 
     public dob: string; 
     public age: string; 
-    public months_of_experience: string; 
-    public experience_level: string; 
-  signMeUp(): void {
-    // var gender = (<HTMLInputElement>document.getElementById("gender")).value; 
-    // var dob = (<HTMLInputElement>document.getElementById("dob")).value; 
-    // var age = (<HTMLInputElement>document.getElementById("age")).value; 
-    // var months_of_experience = (<HTMLInputElement>document.getElementById("months_of_experience")).value; 
-    // var experience_level = (<HTMLInputElement>document.getElementById("experience_level")).value; 
+    public monthsOfExperience: string; 
+    public experienceLevel: string; 
+    public instruments: string;
+    public charge: number;
 
+    selectedItemsList = [];
+    selectedItemsLabelsList = [];
+    checkedIDs = [];
+
+  checkboxesDataList = [
+    {
+      id: 'C001',
+      label: 'Guitar',
+      isChecked: false
+    },
+    {
+      id: 'C002',
+      label: 'Bass',
+      isChecked: false
+    },
+    {
+      id: 'C003',
+      label: 'Keyboard',
+      isChecked: false
+    },
+    {
+      id: 'C004',
+      label: 'Piano',
+      isChecked: false
+    },
+    {
+      id: 'C004',
+      label: 'Drums',
+      isChecked: false
+    },
+    {
+      id: 'C005',
+      label: 'Sitar',
+      isChecked: false
+    },
+    {
+      id: 'C006',
+      label: 'Tabla',
+      isChecked: false
+    },
+    {
+      id: 'C007',
+      label: 'Flute',
+      isChecked: false
+    },
+    {
+      id: 'C008',
+      label: 'Violin',
+      isChecked: false
+    },
+    {
+      id: 'C009',
+      label: 'Music Production',
+      isChecked: false
+    }
+  ]
+
+  changeSelection() {
+    this.fetchSelectedItems()
+  }
+
+  fetchSelectedItems() {
+    this.selectedItemsList = this.checkboxesDataList.filter((value, index) => {
+      return value.isChecked
+    });
+  }
+
+  fetchCheckedIDs() {
+    this.checkedIDs = []
+    this.checkboxesDataList.forEach((value, index) => {
+      if (value.isChecked) {
+        this.checkedIDs.push(value.id);
+      }
+    });
+  }
+
+  fetchInstruments(){
+    this.selectedItemsLabelsList = []
+    this.checkboxesDataList.forEach((value, index) => {
+      if (value.isChecked) {
+        this.selectedItemsLabelsList.push(value.label);
+      }
+    });
+  }
+  signMeUp(): void {
+      this.fetchInstruments();
       if (this.user != null) {
         let httpData: any;
         let criteria = {
@@ -62,13 +146,13 @@ export class RegisterComponent implements OnInit {
           "DOB": this.dob,
           "age": this.age,
           "lock_id": false,
-          "months_of_experience": this.months_of_experience,
-          "experience_level": this.experience_level,
+          "months_of_experience": this.monthsOfExperience,
+          "experience_level": this.experienceLevel,
           instruments: [
             {
               id: "ff71570f-3e87-4bf0-9a69-9762ccaf49eb",
-              instrument: "Guitar",
-              average_charge_per_session: 500
+              instrument: this.selectedItemsLabelsList,
+              average_charge_per_session: this.charge,
             }
           ],
           about_the_author: "",
@@ -79,11 +163,14 @@ export class RegisterComponent implements OnInit {
         };
         console.log('-------------------inside if before post------------------')
         console.log(criteria)
-        this.http.post<any>('https://musicrony.azurewebsites.net/api/registration?code=tOUh6qSxzQ0qh4fvqyJGk1Ca80WKnkSswxPDokJXeRDZaRdCSG7vrw%3D%3D', criteria, {
+        let response = this.http.post<any>('https://musicrony.azurewebsites.net/api/registration?code=tOUh6qSxzQ0qh4fvqyJGk1Ca80WKnkSswxPDokJXeRDZaRdCSG7vrw%3D%3D', criteria, {
         }).subscribe(data => {
           httpData = data;
+          error => console.log(error)
         })
-        console.log('--------httpData------------' + httpData)
+
+        
+        console.log('--------response------------' + response)
         console.log('---------------end of if---------------')
       }
 
