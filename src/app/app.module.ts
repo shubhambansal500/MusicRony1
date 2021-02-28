@@ -22,6 +22,10 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from 'angularx-social-login';
+import { MyclassesComponent } from './myclasses/myclasses.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { MystudentsComponent } from './mystudents/mystudents.component';
+import { SharemyprofileComponent } from './sharemyprofile/sharemyprofile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import {
     TodoListComponent,
     TodoComponent,
     SpinnerComponent,
-    ContentAnimateDirective
+    ContentAnimateDirective,
+    MyclassesComponent,
+    AnalyticsComponent,
+    MystudentsComponent,
+    SharemyprofileComponent
   ],
   imports: [
     BrowserModule,
