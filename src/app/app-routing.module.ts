@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import {MyclassesComponent} from './myclasses/myclasses.component'; 
+import {AnalyticsComponent} from './analytics/analytics.component';
+import {MystudentsComponent} from './mystudents/mystudents.component';
+import {SharemyprofileComponent} from './sharemyprofile/sharemyprofile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'myclasses', component: MyclassesComponent },
+  { path: 'analytics', component: AnalyticsComponent },
+  { path: 'mystudents', component: MystudentsComponent },
+  { path: 'sharemyprofile', component: SharemyprofileComponent },
   { path: 'basic-ui', loadChildren: () => import('./basic-ui/basic-ui.module').then(m => m.BasicUiModule) },
   { path: 'charts', loadChildren: () => import('./charts/charts.module').then(m => m.ChartsDemoModule) },
   { path: 'forms', loadChildren: () => import('./forms/form.module').then(m => m.FormModule) },
