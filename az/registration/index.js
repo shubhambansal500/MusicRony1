@@ -5,24 +5,35 @@ module.exports = async function (context, req) {
             message: {}
         };
         let errorMessage = "Incorrect payload! Following inputs are incorrect or missing:";
+        const errorMessageLength = errorMessage.length;
 
         /*Input validation starts */
         if (req.method == "POST") {
             if (!(req.body && req.body.email && req.body.first_name && req.body.last_name && req.body.user_type && req.body.gender && req.body.DOB && req.body.age)) {
                 if (!req.body) throw new Error(errorMessage + " Payload.");
                 if (!req.body.email) errorMessage += " email";
-                if (!req.body.first_name) errorMessage += " firstName";
-                if (!req.body.last_name) errorMessage += " lastName";
                 if (!req.body.user_type) errorMessage += " userType";
-                if (!req.body.gender) errorMessage += " gender";
-                if (!req.body.DOB) errorMessage += " DOB";
-                if (!req.body.age) errorMessage += " age";
-                throw new Error(errorMessage);
+
+                if (req.body.user_type != "S") {
+                    if (!req.body.first_name) errorMessage += " firstName";
+                    if (!req.body.last_name) errorMessage += " lastName";
+                    if (!req.body.gender) errorMessage += " gender";
+                    if (!req.body.DOB) errorMessage += " DOB";
+                    if (!req.body.age) errorMessage += " age";
+                }
+                if (errorMessage.length != errorMessageLength) throw new Error(errorMessage);
             }
         }
 
         if (req.method == "GET") {
             if (!(req.query && req.query.emailId)) {
+                errorMessage = "Bad Request! Please supply the valid parameters.";
+                throw new Error(errorMessage);
+            }
+        }
+
+        if (req.method == "PUT") {
+            if (!(req.query && req.query.emailId && req.query.teacherId && req.query.instrument_id && req.query.is_active_student)) {
                 errorMessage = "Bad Request! Please supply the valid parameters.";
                 throw new Error(errorMessage);
             }
@@ -44,7 +55,11 @@ module.exports = async function (context, req) {
         const about_the_author = req.body.about_the_author;
         const video_links = req.body.video_links;
         const average_number_of_classes_per_week = req.body.average_number_of_classes_per_week;
+        const teachers = req.body.teachers;
         const emailId = req.query.emailId;
+        const teacherId = req.query.teacherId;
+        const instrumentId = req.query.instrument_id;
+        const isActiveStudent = req.query.is_active_student;
         const users = context.bindings.users;               //List of users
 
         /*Authentication starts */
@@ -76,6 +91,7 @@ module.exports = async function (context, req) {
                     DOB: DOB,
                     age: age,
                     lock_id: false,
+                    teachers: teachers,
                     months_of_experience: months_of_experience,
                     experience_level: experience_level,
                     instruments: instruments,
@@ -92,6 +108,33 @@ module.exports = async function (context, req) {
             }
         }
         /*Registration ends */
+
+        /*Student updatation starts */
+        if (req.method == "PUT") {
+            if (users.find(element => element.email == emailId) && (users.find(element => element.email == emailId)).lock_id != true) {
+                let obj = users.find(element => element.email == emailId);
+                const elementIndex = obj.teachers.findIndex(element => {
+                    if (element.teacher_id == teacherId && element.instrument_id == instrumentId && element.is_active_student == false) {
+                        return true
+                    }
+                });
+                if (elementIndex != -1 && isActiveStudent == "true") {
+                    obj.teachers[elementIndex].is_active_student = true;
+                    context.bindings.newUser = obj;
+                    responseMessage.status = 200;
+                    responseMessage.message = obj;
+                }
+                else {
+                    responseMessage.status = 400;
+                    responseMessage.message = "No such teacher student instrument combination exist or the activation parameter is invalid."
+                }
+            }
+            else {
+                responseMessage.status = 403;
+                responseMessage.message = "Forbidden! Either the user doesn't exist or has been locked."
+            }
+        }
+        /*Student updatation ends */
 
         context.res = {
             status: responseMessage.status,
