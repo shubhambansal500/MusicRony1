@@ -84,15 +84,13 @@
             </div>
 
             <h4 class="card-title">Instruments</h4>
-            <p class="card-description">Please select Instruments</p>
+            <p class="card-description">Please select instruments you can teach</p>
             <form>
               <div class="row">
                 <div class="col-md-6">
-                  <h4>List of Hobbies</h4>
-
                   <ul class="checkbox-items">
                     <li *ngFor="let item of checkboxesDataList">
-                      <input type="checkbox" name="options1" id="options1" [(ngModel)]="item.isChecked"
+                      <input type="checkbox" name="instruments1" id="instruments1" [(ngModel)]="item.isChecked"
                         (change)="changeSelection()">{{item.label}}
                     </li>
                   </ul>

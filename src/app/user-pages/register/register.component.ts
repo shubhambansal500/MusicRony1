@@ -163,7 +163,7 @@ export class RegisterComponent implements OnInit {
         };
         console.log('-------------------inside if before post------------------')
         console.log(criteria)
-        let response = this.http.post<any>('https://musicrony.azurewebsites.net/api/registration?code=tOUh6qSxzQ0qh4fvqyJGk1Ca80WKnkSswxPDokJXeRDZaRdCSG7vrw%3D%3D', criteria, {
+        let response = this.http.post<any>('https://musicrony.azurewebsites.net/api/registration?code=8UAbjldUQK82O1D8uJnZyRrbX9fI3IS0Sj1Qav4l7j%2Fo%2FfkcT0NRbw%3D%3D', criteria, {
         }).subscribe(data => {
           httpData = data;
           error => console.log(error)
