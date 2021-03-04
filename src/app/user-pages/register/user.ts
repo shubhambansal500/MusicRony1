@@ -1,11 +1,11 @@
 export class User {
 
-    constructor(
-      public gender: string,
-      public dob: string,
-      public age: number,
-      public months_of_experience: number,
-      public experience_level: number
-    ) {  }
-  
+  "instrument": string;
+  "id": string;
+  "_rid": string;
+  "_self": string;
+  "_etag": string;
+  "_attachments": string;
+  "_ts": number
+
   }

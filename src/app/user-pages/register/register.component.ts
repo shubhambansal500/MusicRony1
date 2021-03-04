@@ -3,11 +3,13 @@ import { SocialAuthService } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 import { User } from './user';
+import { Observable, of, pipe } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
 import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from 'angularx-social-login';
-import { data } from 'jquery';
+
 
 @Component({
   selector: 'app-register',
@@ -36,8 +38,10 @@ export class RegisterComponent implements OnInit {
         console.log(user.lastName)
         console.log(user.email)
       }
+      this.fetchInstrumentsfromAPI()
       this.fetchSelectedItems()
       this.fetchCheckedIDs()
+      
     });
   }
 
@@ -52,6 +56,9 @@ export class RegisterComponent implements OnInit {
     selectedItemsList = [];
     selectedItemsLabelsList = [];
     checkedIDs = [];
+
+  checkboxesInstrumentDataList = []
+  instrumentsResponse: any;
 
   checkboxesDataList = [
     {
@@ -105,6 +112,40 @@ export class RegisterComponent implements OnInit {
       isChecked: false
     }
   ]
+
+  async fetchInstrumentsfromAPI() {
+    // TODO fix this and get proper JSON response
+    let user: User
+    let responsex = this.http.get('https://musicrony.azurewebsites.net/api/instruments?code=hWieGj0aBSLxue2eJakA4YUCVdc6ijCtJPALF10qgnNSWdNq1O0uiQ%3D%3D').pipe(tap( // Log the result or error
+    data => console.log("filename", data),
+    error => console.log("filename", error)
+  ))
+    console.log(responsex)
+    //let user: User;
+    const params = await this.http.request('GET', 'https://musicrony.azurewebsites.net/api/instruments?code=hWieGj0aBSLxue2eJakA4YUCVdc6ijCtJPALF10qgnNSWdNq1O0uiQ%3D%3D', {responseType:'json'});
+    console.log(params);
+
+    // DO not touch it works
+    let response = await this.http.get('https://musicrony.azurewebsites.net/api/instruments?code=hWieGj0aBSLxue2eJakA4YUCVdc6ijCtJPALF10qgnNSWdNq1O0uiQ%3D%3D', {responseType: 'json'})
+    .subscribe(users =>{
+      this.instrumentsResponse = users;
+      this.instrumentsResponse.forEach(data => {
+         this.checkboxesInstrumentDataList.push({
+          instrument: data.instrument, id: data.id,   _rid: data._rid,
+          _self: data._self,
+          _etag: data._etag,
+          _attachments: data._attachments,
+          _ts: data._ts
+     });
+    });});
+    console.log("All Instruments Response----------------" + this.instrumentsResponse)
+    console.log("All Instruments----------------" + this.checkboxesInstrumentDataList)
+
+
+    // let response = await this.http.get('https://musicrony.azurewebsites.net/api/instruments?code=hWieGj0aBSLxue2eJakA4YUCVdc6ijCtJPALF10qgnNSWdNq1O0uiQ%3D%3D', {responseType: 'json'})
+    // .subscribe((data) => {return data});
+    // console.log(response)
+  }
 
   changeSelection() {
     this.fetchSelectedItems()
