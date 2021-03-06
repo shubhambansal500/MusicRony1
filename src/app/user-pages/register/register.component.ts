@@ -20,7 +20,6 @@ export class RegisterComponent implements OnInit {
   private lastname: string;
   private gender: string;
   private dob: string;
-  private age: string;
   private monthsOfExperience: string;
   private experienceLevel: string;
   private charge: number;
@@ -35,7 +34,7 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: SocialAuthService, private http: HttpClient) { }
 
   ngOnInit() {
-     this.authService.authState.subscribe(user => {
+    this.authService.authState.subscribe(user => {
       this.user = user;
       if (this.user != null) {
         this.email = user.email;
@@ -47,14 +46,13 @@ export class RegisterComponent implements OnInit {
   }
 
   async fetchInstrumentsfromAPI() {
-    // DO not touch it works
     await this.http.get('https://musicrony.azurewebsites.net/api/instruments?code=hWieGj0aBSLxue2eJakA4YUCVdc6ijCtJPALF10qgnNSWdNq1O0uiQ%3D%3D', { responseType: 'json' })
       .subscribe(instruments => {
         this.instrumentsResponse = instruments;
         this.instrumentsResponse.forEach(data => {
           this.checkboxesInstrumentDataList.push({
-            instrument: data.instrument, 
-            id: data.id, 
+            instrument: data.instrument,
+            id: data.id,
             _rid: data._rid,
             _self: data._self,
             _etag: data._etag,
@@ -64,7 +62,20 @@ export class RegisterComponent implements OnInit {
           });
         });
       });
-      this.fetchInstruments();
+    this.fetchInstruments();
+  }
+
+  public ageFromDateOfBirthday(dateOfBirth: any): string {
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age.toString();
   }
 
   changeSelection() {
@@ -86,7 +97,8 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
-  signMeUp(): void {   
+  signMeUp(): void {
+    let age: string = this.ageFromDateOfBirthday(this.dob)
     if (this.user != null) {
       let httpData: any;
       let criteria = {
@@ -96,7 +108,7 @@ export class RegisterComponent implements OnInit {
         "user_type": "T",
         "gender": this.gender,
         "DOB": this.dob,
-        "age": this.age,
+        "age": age,
         "lock_id": false,
         "months_of_experience": this.monthsOfExperience,
         "experience_level": this.experienceLevel,
@@ -114,10 +126,12 @@ export class RegisterComponent implements OnInit {
         average_number_of_classes_per_week: 3
       };
       let response = this.http.post<any>('https://musicrony.azurewebsites.net/api/registration?code=8UAbjldUQK82O1D8uJnZyRrbX9fI3IS0Sj1Qav4l7j%2Fo%2FfkcT0NRbw%3D%3D', criteria, {
+        responseType: "json"
       }).subscribe(data => {
         httpData = data;
         error => console.log(error)
       })
+      console.log(response)
     }
 
   }
