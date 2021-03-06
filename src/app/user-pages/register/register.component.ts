@@ -42,8 +42,8 @@ export class RegisterComponent implements OnInit {
         this.firstname = user.firstName;
         this.lastname = user.lastName;
       }
-      this.fetchInstrumentsfromAPI()
     });
+    this.fetchInstrumentsfromAPI()
   }
 
   async fetchInstrumentsfromAPI() {
@@ -64,6 +64,7 @@ export class RegisterComponent implements OnInit {
           });
         });
       });
+      this.fetchInstruments();
   }
 
   changeSelection() {
@@ -76,15 +77,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  fetchCheckedIDs() {
-    this.checkedIDs = []
-    this.checkboxesInstrumentDataList.forEach((value, index) => {
-      if (value.isChecked) {
-        this.checkedIDs.push(value.id);
-      }
-    });
-  }
-
   fetchInstruments() {
     this.selectedItemsInstrumentsList = []
     this.checkboxesInstrumentDataList.forEach((value, index) => {
@@ -94,8 +86,7 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
-  signMeUp(): void {
-    this.fetchInstruments();
+  signMeUp(): void {   
     if (this.user != null) {
       let httpData: any;
       let criteria = {
