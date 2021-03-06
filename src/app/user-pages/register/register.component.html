@@ -7,7 +7,6 @@
         </div>
         <h4>New here?</h4>
         <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-
         <div *ngIf="!user" class="card text-center">
           <div class="card-block">
             <p class="card-text">Sign in with</p>
@@ -30,18 +29,15 @@
             <p class="card-text">{{ user.email }}</p>
             <p class="card-text">Logged in with {{ user.provider }}</p>
           </div>
-
           <div class="page-header">
             <h3 class="page-title">
               Registration Form
             </h3>
           </div>
         </div>
-
       </div>
     </div>
   </div>
-
 </div>
 
 <div *ngIf="user">
@@ -60,38 +56,36 @@
           </p>
           <form class="forms-sample">
             <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input type="text" class="form-control" [(ngModel)]="firstName" name="firstName">
+              <label for="firstname">First Name</label>
+              <input type="text" class="form-control" [(ngModel)]="firstname" name="firstname" readonly>
             </div>
             <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input type="text" class="form-control" [(ngModel)]="lastName" name="lastName">
+              <label for="lastname">Last Name</label>
+              <input type="text" class="form-control" [(ngModel)]="lastname" name="lastname" readonly>
             </div>
             <div class="form-group">
               <label for="inputEmail">Email address</label>
-              <input type="email" class="form-control" [(ngModel)]="email" name="email">
+              <input type="email" class="form-control" [(ngModel)]="email" name="email" readonly>
             </div>
-            <!-- TODO fix calendar-->
             <div class="form-group">
               <label for="inputDob">Date Of Birth</label>
-               <!-- <ngb-datepicker #dp [(ngModel)]="age" (navigate)="age = $event.next" class="w-100 border-0" name="age" id="age"></ngb-datepicker> -->
-              <input type="text" class="form-control" [(ngModel)]="dob" name="dob">
+              <!-- TODO: fix calendaras it does not works with Safari-->
+              <input type="date" class="form-control" [(ngModel)]="dob" name="dob">
             </div>
-            
+
             <div class="form-group">
               <label for="inputAge">Age</label>
               <input type="text" class="form-control" [(ngModel)]="age" name="age">
             </div>
-
             <h4 class="card-title">Instruments</h4>
             <p class="card-description">Please select instruments you can teach</p>
             <form>
               <div class="row">
                 <div class="col-md-6">
                   <ul class="checkbox-items">
-                    <li *ngFor="let item of checkboxesDataList">
-                      <input type="checkbox" name="instruments1" id="instruments1" [(ngModel)]="item.isChecked"
-                        (change)="changeSelection()">{{item.label}}
+                    <li *ngFor="let instruments of checkboxesInstrumentDataList">
+                      <input type="checkbox" name="instruments1" id="instruments1" [(ngModel)]="instruments.isChecked"
+                        (change)="changeSelection()">{{instruments.instrument}}
                     </li>
                   </ul>
 
@@ -158,9 +152,6 @@
             <button type="submit" class="btn btn-gradient-primary mr-2" (click)="signMeUp()">Submit</button>
             <button class="btn btn-light">Cancel</button>
           </form>
-          <ng-container *ngFor="let news  of data?.articles">
-            <h3>{{news.title}}</h3>
-          </ng-container>
         </div>
       </div>
     </div>

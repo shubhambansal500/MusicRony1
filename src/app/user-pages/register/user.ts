@@ -6,6 +6,6 @@ export class User {
   "_self": string;
   "_etag": string;
   "_attachments": string;
-  "_ts": number
-
+  "_ts": number;
+  "isChecked": boolean
   }
