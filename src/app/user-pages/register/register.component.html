@@ -1,39 +1,59 @@
-<div class="d-flex align-items-center auth px-0">
-  <div class="row w-100 mx-0">
-    <div class="col-lg-4 mx-auto">
-      <div class="auth-form-light text-left py-4 px-4 px-sm-5">
-        <div class="brand-logo">
-          <img src="assets/images/logo.svg" alt="logo">
+<body>
+  <script>
+    function showPassword() {
+      var password = document.getElementById("password");
+      var confirmPassword = document.getElementById("confirmpassword");
+      if (password.type === "password" && confirmPassword.type == "password") {
+        password.type = "text";
+        confirmPassword.type = "text";
+      } else {
+        password.type = "password";
+        confirmPassword.type = "password";
+      }
+    }
+  </script>
+</body>
+<div class="col-md-auto grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex align-items-left auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <img src="assets/images/logo_registration.svg" alt="logo">
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div *ngIf="!user" class="card text-center">
         <h4>New here?</h4>
-        <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-        <div *ngIf="!user" class="card text-center">
-          <div class="card-block">
-            <p class="card-text">Sign in with</p>
-          </div>
-          <div class="card-block">
-            <button class="btn btn-social-icon btn-google mx-1" (click)="signInWithGoogle()"><span
-                class="fab fa-google"></span></button>
-            <button class="btn btn-social-icon btn-facebook mx-1" (click)="signInWithFB()"><span
-                class="fab fa-facebook"></span></button>
-          </div>
+        <div class="card-block">
+          <p class="card-text" style="text-align:left"><b>Register</b></p>
         </div>
-        <div *ngIf="user" class="card text-center">
-          <h6 class="card-header">
-            Social Login
-          </h6>
-          <div class="card-block"></div>
-          <img *ngIf="user.photoUrl" class="card-img-top img-responsive photo" src="{{ user.photoUrl }}">
-          <div class="card-block">
-            <h4 class="card-title">{{ user.name }}</h4>
-            <p class="card-text">{{ user.email }}</p>
-            <p class="card-text">Logged in with {{ user.provider }}</p>
-          </div>
-          <div class="page-header">
-            <h3 class="page-title">
-              Registration Form
-            </h3>
-          </div>
+        <div class="card-block">
+          <button class="btn btn-block btn-google auth-form-btn" (click)="signInWithGoogle()">
+            <i class="mdi mdi-google mr-2"></i>Connect using Google
+          </button>
+          <button class="btn btn-block btn-facebook auth-form-btn" (click)="signInWithFB()">
+            <i class="mdi mdi-facebook mr-2"></i>Connect using facebook
+          </button>
+        </div>
+      </div>
+      <div *ngIf="user" class="card text-left">
+        <img *ngIf="user.photoUrl" class="card-img-top img-responsive photo" src="{{ user.photoUrl }}" width="42"
+          height="42">
+        <div class="card-block">
+          <h4 class="card-title">{{ user.name }}</h4>
+          <p class="card-text">{{ user.email }}</p>
+          <p class="card-text">Logged in with {{ user.provider }}</p>
+        </div>
+        <div class="card-block">
+          <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+        </div>
+        <div class="card-block" *ngIf="user.provider === GoogleLoginProvider.PROVIDER_ID">
+          <button class="btn" (click)="refreshGoogleToken()">Refresh google token</button>
         </div>
       </div>
     </div>
@@ -46,114 +66,138 @@
       Registration Form
     </h3>
   </div>
-  <div class="row">
-    <div class="col-md-6 grid-margin stretch-card">
+
+  <div class="row" class="content">
+    <div class="col-md-auto grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Default form</h4>
-          <p class="card-description">
-            Basic form layout
-          </p>
-          <form class="forms-sample">
-            <div class="form-group">
-              <label for="firstname">First Name</label>
-              <input type="text" class="form-control" [(ngModel)]="firstname" name="firstname" readonly>
-            </div>
-            <div class="form-group">
-              <label for="lastname">Last Name</label>
-              <input type="text" class="form-control" [(ngModel)]="lastname" name="lastname" readonly>
-            </div>
-            <div class="form-group">
-              <label for="inputEmail">Email address</label>
-              <input type="email" class="form-control" [(ngModel)]="email" name="email" readonly>
-            </div>
-            <div class="form-group">
-              <label for="inputDob">Date Of Birth</label>
-              <!-- TODO: fix calendaras it does not works with Safari-->
-              <input type="date" class="form-control" [(ngModel)]="dob" name="dob">
-            </div>
-            <h4 class="card-title">Instruments</h4>
-            <p class="card-description">Please select instruments you can teach</p>
-            <form>
-              <div class="row">
-                <div class="col-md-6">
-                  <ul class="checkbox-items">
-                    <li *ngFor="let instruments of checkboxesInstrumentDataList">
-                      <input type="checkbox" name="instruments1" id="instruments1" [(ngModel)]="instruments.isChecked"
-                        (change)="changeSelection()">{{instruments.instrument}}
-                    </li>
-                  </ul>
-
-                </div>
-
-                <div class="col-md-6">
-                  <h4>Teaching Experience</h4>
-                  <div class="form-group">
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input type="radio" class="form-check-input" type="radio" name="options1"
-                          [(ngModel)]="monthsOfExperience" value="0-1 Years">
-                        0-1 Years
-                        <i class="input-helper"></i>
-                      </label>
+          <div class="d-flex align-items-left">
+            <div class="row">
+              <div class="col-lg-auto mx-auto">
+                <div class="auth-form-light text-left ">
+                  <h4 class="card-title">Teacher Profile</h4>
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <label for="firstname">First Name</label>
+                      <input type="text" class="form-control" [(ngModel)]="firstname" name="firstname" readonly>
                     </div>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="options2" [(ngModel)]="monthsOfExperience"
-                          value="1-3 Years">
-                        1-3 Years
-                        <i class="input-helper"></i>
-                      </label>
+                    <div class="form-group">
+                      <label for="lastname">Last Name</label>
+                      <input type="text" class="form-control" [(ngModel)]="lastname" name="lastname" readonly>
                     </div>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="options3" [(ngModel)]="monthsOfExperience"
-                          value="3-7 Years">
-                        3-7 Years
-                        <i class="input-helper"></i>
-                      </label>
+                    <div class="form-group">
+                      <label for="inputEmail">Email address</label>
+                      <input type="email" class="form-control" [(ngModel)]="email" name="email" readonly>
                     </div>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="options4" [(ngModel)]="monthsOfExperience"
-                          value="7+ Years">
-                        7+ Years
-                        <i class="input-helper"></i>
-                      </label>
+                    <div class="form-group">
+                      <label for="password">Create Password</label>
+                      <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password">
                     </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="selectLevel">Level of Teaching</label>
-                  <select class="form-control" [(ngModel)]="experienceLevel" name="experienceLevel">
-                    <option>Beginner</option>
-                    <option>Intermediate</option>
-                    <option>Professional</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="selectGender">Gender</label>
-                  <select class="form-control" [(ngModel)]="gender" name="gender">
-                    <option>Male</option>
-                    <option>Female</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="averageCharge">Average Charge per session</label>
-                  <input type="text" class="form-control" [(ngModel)]="charge" name="charge">
+                    <div class="form-group">
+                      <label for="confirmpassword">Confirm Password</label>
+                      <input type="password" id="confirmpassword" class="form-control" [(ngModel)]="confirmpassword"
+                        name="confirmpassword">
+                      <input type="checkbox" onclick="showPassword()">Show Password
+                    </div>
+                    <div class="form-group">
+                      <label for="inputDob">Date Of Birth</label>
+                      <!-- TODO: fix calendaras it does not works with Safari-->
+                      <input type="date" class="form-control" [(ngModel)]="dob" name="dob">
+                    </div>
+                  </form>
                 </div>
               </div>
-            </form>
-            <button type="submit" class="btn btn-gradient-primary mr-2" (click)="signMeUp()">Submit</button>
-            <button class="btn btn-light">Cancel</button>
-          </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="card-block">
-      <button class="btn btn-danger" (click)="signOut()">Sign out</button>
-    </div>
-    <div class="card-block" *ngIf="user.provider === GoogleLoginProvider.PROVIDER_ID">
-      <button class="btn" (click)="refreshGoogleToken()">Refresh google token</button>
+  </div>
+  <div class="row" class="sidebar">
+    <div class="col-md-auto grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex align-items-left">
+            <div class="row">
+              <div class="col-lg-auto mx-auto">
+                <div class="auth-form-light text-left">
+                  <h4 class="card-title">Instruments</h4>
+                  <p class="card-description">Please select instruments you can teach</p>
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <ul class="checkbox-items">
+                        <li *ngFor="let instruments of checkboxesInstrumentDataList">
+                          <input type="checkbox" name="instruments1" id="instruments1"
+                            [(ngModel)]="instruments.isChecked" (change)="changeSelection()">
+                          {{instruments.instrument}}
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <h4>Teaching Experience</h4>
+                      <div class="form-group">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" type="radio" name="options1"
+                              [(ngModel)]="monthsOfExperience" value="0-1 Years">
+                            0-1 Years
+                            <i class="input-helper"></i>
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="options2"
+                              [(ngModel)]="monthsOfExperience" value="1-3 Years">
+                            1-3 Years
+                            <i class="input-helper"></i>
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="options3"
+                              [(ngModel)]="monthsOfExperience" value="3-7 Years">
+                            3-7 Years
+                            <i class="input-helper"></i>
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="options4"
+                              [(ngModel)]="monthsOfExperience" value="7+ Years">
+                            7+ Years
+                            <i class="input-helper"></i>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="selectLevel">Level of Teaching</label>
+                      <select class="form-control" [(ngModel)]="experienceLevel" name="experienceLevel">
+                        <option>Beginner</option>
+                        <option>Intermediate</option>
+                        <option>Professional</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="selectGender">Gender</label>
+                      <select class="form-control" [(ngModel)]="gender" name="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="averageCharge">Average Charge per session</label>
+                      <input type="text" class="form-control" [(ngModel)]="charge" name="charge">
+                    </div>
+                  </form>
+                  <button type="submit" class="btn btn-gradient-primary mr-2" (click)="signMeUp()">Submit</button>
+                  <button class="btn btn-light">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>

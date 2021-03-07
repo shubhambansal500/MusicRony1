@@ -62,7 +62,6 @@ export class RegisterComponent implements OnInit {
           });
         });
       });
-    this.fetchInstruments();
   }
 
   public ageFromDateOfBirthday(dateOfBirth: any): string {
@@ -80,6 +79,7 @@ export class RegisterComponent implements OnInit {
 
   changeSelection() {
     this.fetchSelectedItems()
+    this.fetchInstruments()
   }
 
   fetchSelectedItems() {
