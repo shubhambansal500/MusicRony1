@@ -6,8 +6,7 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
-        "post"
+        "get"
       ]
     },
     {
@@ -16,20 +15,12 @@
       "name": "res"
     },
     {
-      "name": "instruments",
+      "name": "users",
       "databaseName": "devDB",
-      "collectionName": "Instruments",
+      "collectionName": "Users",
       "connectionStringSetting": "musicrony_DOCUMENTDB",
       "direction": "in",
       "type": "cosmosDB"
-    },
-    {
-      "name": "newInstrument",
-      "direction": "out",
-      "type": "cosmosDB",
-      "databaseName": "devDB",
-      "collectionName": "Instruments",
-      "connectionStringSetting": "musicrony_DOCUMENTDB"
     }
   ]
 }

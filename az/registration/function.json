@@ -18,9 +18,9 @@
     },
     {
       "name": "users",
-      "databaseName": "testDB",
+      "databaseName": "devDB",
       "collectionName": "Users",
-      "connectionStringSetting": "doresa_DOCUMENTDB",
+      "connectionStringSetting": "musicrony_DOCUMENTDB",
       "direction": "in",
       "type": "cosmosDB"
     },
@@ -28,9 +28,9 @@
       "name": "newUser",
       "direction": "out",
       "type": "cosmosDB",
-      "databaseName": "testDB",
+      "databaseName": "devDB",
       "collectionName": "Users",
-      "connectionStringSetting": "doresa_DOCUMENTDB"
+      "connectionStringSetting": "musicrony_DOCUMENTDB"
     }
   ]
 }
