@@ -24,7 +24,8 @@ module.exports = async function (context, req) {
             anticipatedSessionsCurrentMonth: 0,
             anticipatedWorkHours: 0,
             anticipatedWorkHoursCurrentMonth: 0,
-            totalSessionsConducted: 0
+            totalSessionsConducted: 0,
+            activeStudents: []
         }
 
         if (classes.length) {
@@ -36,7 +37,10 @@ module.exports = async function (context, req) {
                     const activeParticipant = context.bindings.users.filter(user => {
                         if (user.email == invitee && user.user_type == "S") {
                             return user.teachers.find(item => {
-                                if (item.teacher_id == teacher_id && item.instrument_id == element.instrument_id && item.is_active_student == true) return true;
+                                if (item.teacher_id == teacher_id && item.instrument_id == element.instrument_id && item.is_active_student == true) {
+                                    if (!obj.activeStudents.includes(invitee)) obj.activeStudents.push(invitee);
+                                    return true;
+                                }
                             });
                         }
                     }).length;
@@ -72,6 +76,7 @@ module.exports = async function (context, req) {
 
             const revenueDailyAverage = [obj.revenueOverall / ((endDates.sort()[endDates.length - 1].getTime() - startDates.sort()[0].getTime()) / (1000 * 60 * 60 * 24))];
             obj.revenueMonthlyAverage = (revenueDailyAverage * 30).toFixed(3) + " to " + (revenueDailyAverage * 31).toFixed(3);
+            obj.activeStudents = obj.activeStudents.length;
             responseMessage.message = obj;
         }
         else {
