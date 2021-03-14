@@ -7,7 +7,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MiscComponent } from './misc/misc.component';
 
-
 const routes: Routes = [
   { path: 'revenue', component: RevenueComponent },
   { path: 'students', component: StudentsComponent },
