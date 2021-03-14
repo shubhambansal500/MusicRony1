@@ -6,6 +6,7 @@ import { SessionsComponent } from './sessions/sessions.component';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MiscComponent } from './misc/misc.component';
+import { ChartsModule } from 'ng2-charts';
 
 const routes: Routes = [
   { path: 'revenue', component: RevenueComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   imports: [
     FormsModule,
     CommonModule,
+    ChartsModule,
     RouterModule.forChild(routes)
   ]
 })
