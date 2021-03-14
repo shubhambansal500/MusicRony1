@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'myclasses', component: MyclassesComponent },
   { path: 'analytics', component: AnalyticsComponent },
+  { path: 'analytics', loadChildren: () => import('./analytics/analytics.module').then(m => m.AnalyticsModule) },
   { path: 'mystudents', component: MystudentsComponent },
   { path: 'sharemyprofile', component: SharemyprofileComponent },
   { path: 'basic-ui', loadChildren: () => import('./basic-ui/basic-ui.module').then(m => m.BasicUiModule) },
