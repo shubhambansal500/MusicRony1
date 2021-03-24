@@ -24,7 +24,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "angularx-social-login": "^3.5.4",
     "bootstrap": "^4.5.3",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "compass-mixins": "^0.12.10",
     "jquery": "^3.5.1",
     "ng2-charts": "^2.4.2",
@@ -36,7 +36,7 @@
     "zone.js": "~0.11.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1001.7",
+    "@angular-devkit/build-angular": "^0.1102.4",
     "@angular/cli": "~10.1.7",
     "@angular/compiler-cli": "~10.1.6",
     "@angular/language-service": "~10.1.6",
