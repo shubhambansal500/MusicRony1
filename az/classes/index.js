@@ -7,7 +7,7 @@ module.exports = async function (context, req) {
 
         /* Validation starts */
         if (req.method == "POST") {
-            if (!(req.body && req.body.class_name && req.body.email_id && req.body.instrument_id && req.body.charge_per_session && req.body.invitees && req.body.policy && req.body.start_date && req.body.end_date)) {
+            if (!(req.body && req.body.class_name && req.body.email_id && req.body.instrument_id && req.body.charge_per_session && req.body.invitees && req.body.policy && req.body.start_date && req.body.end_date && req.body.recurrence)) {
                 let message = "Incorrect payload! Following inputs are incorrect or missing:";
                 if (!req.body) throw new Error(message + " Payload");
                 if (!req.body.class_name) message += " ClassTitle";
@@ -15,6 +15,7 @@ module.exports = async function (context, req) {
                 if (!req.body.instrument_id) message += " instrumentId";
                 if (!req.body.start_date) message += " startDate";
                 if (!req.body.end_date) message += " endDate";
+                if (!req.body.recurrence) message += " recurrence";
                 if (!req.body.charge_per_session) message += " chargePerSession";
                 if (!req.body.policy) message += " policy";
                 if (!req.body.invitees) message += " invitees";
@@ -50,7 +51,13 @@ module.exports = async function (context, req) {
         const charge_per_session = req.body.charge_per_session;
         const policy = req.body.policy;
         const enable_recording = req.body.enable_recording;
-        const invitees = req.body.invitees;
+        const invitees = [];
+        req.body.invitees.map(element => {
+            invitees.push({
+                email: element,
+                attendance_count: 0
+            });
+        });
 
         if (req.method == "POST") {
             if (teacher_id && (instruments.find(element => element.id == instrument_id) ? instruments.find(element => element.id == instrument_id).id : null)) {
@@ -64,6 +71,7 @@ module.exports = async function (context, req) {
                     description: description,
                     duration_in_minutes: duration_in_minutes,
                     recurrence: recurrence,
+                    session_count: 0,
                     prerequisites: prerequisites,
                     level: level,
                     charge_per_session: charge_per_session,

@@ -1,0 +1,50 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "put"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "classes",
+      "databaseName": "devDB",
+      "collectionName": "Classes",
+      "connectionStringSetting": "musicrony_DOCUMENTDB",
+      "direction": "in",
+      "type": "cosmosDB"
+    },
+    {
+      "name": "updateClass",
+      "databaseName": "devDB",
+      "collectionName": "Classes",
+      "connectionStringSetting": "musicrony_DOCUMENTDB",
+      "direction": "out",
+      "type": "cosmosDB"
+    },
+    {
+      "name": "users",
+      "databaseName": "devDB",
+      "collectionName": "Users",
+      "connectionStringSetting": "musicrony_DOCUMENTDB",
+      "direction": "in",
+      "type": "cosmosDB"
+    },
+    {
+      "name": "updateUser",
+      "databaseName": "devDB",
+      "collectionName": "Users",
+      "connectionStringSetting": "musicrony_DOCUMENTDB",
+      "direction": "out",
+      "type": "cosmosDB"
+    }
+  ]
+}

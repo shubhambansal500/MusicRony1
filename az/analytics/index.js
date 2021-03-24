@@ -35,10 +35,10 @@ module.exports = async function (context, req) {
                 endDates.push(new Date(element.end_date));
                 element.invitees.map((invitee) => {
                     const activeParticipant = context.bindings.users.filter(user => {
-                        if (user.email == invitee && user.user_type == "S") {
+                        if (user.email == invitee.email && user.user_type == "S") {
                             return user.teachers.find(item => {
                                 if (item.teacher_id == teacher_id && item.instrument_id == element.instrument_id && item.is_active_student == true) {
-                                    if (!obj.activeStudents.includes(invitee)) obj.activeStudents.push(invitee);
+                                    if (!obj.activeStudents.includes(invitee.email)) obj.activeStudents.push(invitee.email);
                                     return true;
                                 }
                             });
