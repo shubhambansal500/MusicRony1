@@ -1,1 +1,109 @@
-<p>createclass works!</p>
+<div class="row" class="content">
+    <div class="col-md-auto grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="btn-group-vertical" aria-label="createclass">
+                    <button type="button" class="btn btn-outline-secondary" routerLink="../" routerLinkActive="active" #analytics="routerLinkActive">Back</button>
+                </div>
+                <br><br>
+                <div class="page-header">
+                    <h3 class="page-title">
+                        New Class
+                    </h3>
+                </div>
+                <div class="d-flex align-items-left">
+                    <div class="row">
+                        <div class="col-lg-auto mx-auto">
+                            <div class="auth-form-light text-left ">
+                                <form class="forms-sample">
+                                    <div class="form-group">
+                                        <label for="classname">Class Name</label>
+                                        <input type="text" class="form-control" [(ngModel)]="classname" name="classname">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="startDate">Start Date</label>
+                                        <!-- TODO: fix calendaras it does not works with Safari-->
+                                        <input type="date" class="form-control" [(ngModel)]="startDate" name="startDate">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="classname">Class Duration</label>
+                                        <input type="text" class="form-control" [(ngModel)]="classduration" name="classduration" placeholder="In minutes">
+                                    </div>
+
+                                    <div class="weekDays-selector">
+                                        <label for="weedays">Time and Days</label><br>
+                                        <input type="time" id="time" name="time">
+                                        <br><br>
+                                        <input type="checkbox" id="weekday-mon" class="weekday" />
+                                        <label for="weekday-mon">Mon &nbsp;</label>
+                                        <input type="checkbox" id="weekday-tue" class="weekday" />
+                                        <label for="weekday-tue">Tue &nbsp;</label>
+                                        <input type="checkbox" id="weekday-wed" class="weekday" />
+                                        <label for="weekday-wed">Wed &nbsp;</label>
+                                        <input type="checkbox" id="weekday-thu" class="weekday" />
+                                        <label for="weekday-thu">Thu &nbsp;</label>
+                                        <input type="checkbox" id="weekday-fri" class="weekday" />
+                                        <label for="weekday-fri">Fri &nbsp;</label>
+                                        <input type="checkbox" id="weekday-sat" class="weekday" />
+                                        <label for="weekday-sat">Sat &nbsp;</label>
+                                        <input type="checkbox" id="weekday-sun" class="weekday" />
+                                        <label for="weekday-sun">Sun &nbsp;</label>
+                                    </div>
+                                    <br>
+
+                                    <div class="form-group">
+                                        <label for="maxStudents">Max number of Students</label>
+                                        <input type="text" class="form-control" [(ngModel)]="maxStudents" name="maxStudents">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="prerequisites">Prerequisites</label>
+                                        <br>
+                                        <textarea rows="4" cols="50" maxlength="250" placeholder="Maximum length: 250 letters"></textarea>
+                                    </div>
+
+                                    <label>Instruments</label>
+                                    <form class="forms-sample">
+                                        <div class="form-group">
+                                            <ul class="checkbox-items">
+                                                <li *ngFor="let instruments of checkboxesInstrumentDataList">
+                                                    <input type="checkbox" name="instruments1" id="instruments1" [(ngModel)]="instruments.isChecked" (change)="changeSelection()"> {{instruments.instrument}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="classDescription">Class Description</label>
+                                            <br>
+                                            <textarea rows="4" cols="50" maxlength="250" placeholder="Maximum length: 250 letters"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="selectLevel">Level</label>
+                                            <select class="form-control" [(ngModel)]="experienceLevel" name="experienceLevel">
+                        <option>Beginner</option>
+                        <option>Intermediate</option>
+                        <option>Professional</option>
+                      </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="charge">Charge per session</label>
+                                            <input type="text" class="form-control" [(ngModel)]="charge" name="charge">
+                                        </div>
+                                    </form>
+                                    <button type="submit" class="btn btn-gradient-primary mr-2" (click)="signMeUp()">Submit</button>
+                                    <button class="btn btn-light">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
