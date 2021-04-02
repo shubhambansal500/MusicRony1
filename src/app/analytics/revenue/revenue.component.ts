@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AnalyticsService } from '../analytics.service';
+
 @Component({
   selector: 'app-revenue',
   templateUrl: './revenue.component.html',
@@ -6,14 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RevenueComponent implements OnInit {
 
-  constructor() { }
+  responseDataList = []
+  constructor(private analytics: AnalyticsService) { 
+    this.responseDataList = analytics.responseDataList;
+  }
 
   ngOnInit(): void {
   }
+
   revenueChartData = [{
     // TODO fix and remove label tag
     label: 'Rs',
-    data: [10, 100, 3, 5, 2, 3],
+    data: this.responseDataList,
     borderWidth: 1,
     fill: true
   }];
