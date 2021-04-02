@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'myclasses', component: MyclassesComponent },
+  { path: 'myclasses', loadChildren: () => import('./myclasses/myclasses.module').then(m => m.MyClassesModule) },
   { path: 'analytics', component: AnalyticsComponent },
   { path: 'analytics', loadChildren: () => import('./analytics/analytics.module').then(m => m.AnalyticsModule) },
   { path: 'mystudents', component: MystudentsComponent },

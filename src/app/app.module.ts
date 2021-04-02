@@ -27,6 +27,7 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { MystudentsComponent } from './mystudents/mystudents.component';
 import { SharemyprofileComponent } from './sharemyprofile/sharemyprofile.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,7 @@ import { SharemyprofileComponent } from './sharemyprofile/sharemyprofile.compone
     MyclassesComponent,
     AnalyticsComponent,
     MystudentsComponent,
-    SharemyprofileComponent
+    SharemyprofileComponent,
   ],
   imports: [
     BrowserModule,
