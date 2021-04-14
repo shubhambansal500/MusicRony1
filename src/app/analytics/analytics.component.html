@@ -1,16 +1,27 @@
-<div class="row">
+<div class="row" id="proBanner">
     <div class="col-12">
         <h3 class="page-title">
-            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: left;" routerLink="revenue" routerLinkActive="active" #revenue="routerLinkActive">Revenue</button>
-            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: left;" routerLink="students" routerLinkActive="active" #students="routerLinkActive">Students</button>
-            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: left;" routerLink="sessions" routerLinkActive="active" #sessions="routerLinkActive">Sessions</button>
-            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: left;" routerLink="attendence" routerLinkActive="active" #attendence="routerLinkActive">Attendence</button>
-            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: left;" routerLink="payments" routerLinkActive="active" #payments="routerLinkActive">Payments</button>
-            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: left;" routerLink="misc" routerLinkActive="active" #misc="routerLinkActive">Miscellaneous</button>
+            <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                <i class="mdi mdi mdi-group menu-icon"></i>
+            </span>
+            Analytics
+            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: right;" routerLink="misc"
+                routerLinkActive="active" #misc="routerLinkActive">Miscellaneous</button>
+            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: right;" routerLink="payments"
+                routerLinkActive="active" #payments="routerLinkActive">Payments</button>
+            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: right;" routerLink="attendence"
+                routerLinkActive="active" #attendence="routerLinkActive">Attendence</button>
+            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: right;" routerLink="sessions"
+                routerLinkActive="active" #sessions="routerLinkActive">Sessions</button>
+            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: right;" routerLink="students"
+                routerLinkActive="active" #students="routerLinkActive">Students</button>
+            <button type="submit" class="btn btn-outline-dark btn-fw" style="float: right;" routerLink="revenue"
+                routerLinkActive="active" #revenue="routerLinkActive">Revenue</button>
         </h3>
     </div>
 </div>
 <br>
+
 <div class="row">
     <div class="col-md-4 stretch-card grid-margin">
         <div class="card bg-gradient-danger card-img-holder text-white">
@@ -88,7 +99,8 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Revenue each Month</h4>
-                <canvas baseChart [chartType]="'line'" [datasets]="areaChartData" [labels]="areaChartLabels" [options]="areaChartOptions" [colors]="areaChartColors"></canvas>
+                <canvas baseChart [chartType]="'line'" [datasets]="areaChartData" [labels]="areaChartLabels"
+                    [options]="areaChartOptions" [colors]="areaChartColors"></canvas>
             </div>
         </div>
     </div>
