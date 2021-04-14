@@ -9,6 +9,7 @@ import {SharemyprofileComponent} from './sharemyprofile/sharemyprofile.component
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: 'myclasses', component: MyclassesComponent },
   { path: 'myclasses', loadChildren: () => import('./myclasses/myclasses.module').then(m => m.MyClassesModule) },
   { path: 'analytics', component: AnalyticsComponent },
