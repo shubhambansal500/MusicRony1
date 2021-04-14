@@ -90,8 +90,14 @@
                                             <label for="charge">Charge per session</label>
                                             <input type="text" class="form-control" [(ngModel)]="charge" name="charge">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="inviteStudents">Invite Students</label>
+                                            <br>
+                                            <textarea rows="4" cols="50" maxlength="250" placeholder="Type Emails with each email separated by a commma"></textarea>
+                                        </div>
                                     </form>
-                                    <button type="submit" class="btn btn-gradient-primary mr-2" (click)="signMeUp()">Submit</button>
+                                    <button type="submit" class="btn btn-gradient-primary mr-2" (click)="create()">Create</button>
+                                    <button type="submit" class="btn btn-outline-secondary" routerLink="../" routerLinkActive="active" #analytics="routerLinkActive">Save</button>
                                     <button class="btn btn-light">Cancel</button>
                                 </form>
                             </div>

@@ -16,7 +16,7 @@ export class CreateclassComponent implements OnInit {
   }
 
   async fetchInstrumentsfromAPI() {
-    await this.http.get('https://musicrony.azurewebsites.net/api/instruments?code=hWieGj0aBSLxue2eJakA4YUCVdc6ijCtJPALF10qgnNSWdNq1O0uiQ%3D%3D', { responseType: 'json' })
+    await this.http.get('http://localhost:7071/api/instruments', { responseType: 'json' })
       .subscribe(instruments => {
         this.instrumentsResponse = instruments;
         this.instrumentsResponse.forEach(data => {
